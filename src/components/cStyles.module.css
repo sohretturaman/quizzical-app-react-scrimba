@@ -1,7 +1,7 @@
 .button{
     border-radius: 10px;
-    padding: 5px;
-    min-width: 65px;
+    padding: 10px;
+    max-width: 70px;
     height: 24px;
     justify-content: center;
     display: flex;
@@ -16,19 +16,20 @@
 }
 
 .buttonWrapper{
-    margin: 10px;
+    margin: 5px;
+   
 }
 .listWrapper{
     display: flex;
     flex-direction: row;
-    
+     position: relative;
+     flex-wrap: wrap;
    
 }
 .questionWrapper{
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     border-bottom: 1px solid #DBDEF0;
     padding-bottom: 5px;
-    
     max-width: 90%;
     padding-bottom: 10px;
 }

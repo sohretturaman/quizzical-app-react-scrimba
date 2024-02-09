@@ -52,17 +52,31 @@ transform: scale(1.1,1.1);
 /** HOME STYLES */
 
 .hContainer{
-  height: 95vh;
-   width: 80vw;
+  flex: 1;
   align-self: center;
   display:flex;
   flex-direction: column;
   padding: 20px;
+ height: auto;
+ position: relative;
 }
 
+main{
+  height: auto;
+  width: 80vw;
+  flex: 1;
+  align-self: center;
+  display:flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: red;
+  position: relative;
+}
 .checkBWrapper{
 align-self: center;
 display: flex;
 position: absolute;
- bottom: 20px;
+bottom: 0px;
+
+
 }
