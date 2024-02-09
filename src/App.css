@@ -1,4 +1,8 @@
 .App {
   text-align: center;
+  align-items: center;
+  text-align: left;
+justify-content: center;
+  display: flex;
 }
 

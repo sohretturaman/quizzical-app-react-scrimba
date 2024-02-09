@@ -1,0 +1,64 @@
+.button{
+    border-radius: 10px;
+    padding: 5px;
+    min-width: 65px;
+    height: 24px;
+    justify-content: center;
+    display: flex;
+     font-size: 11px;
+     border:none;
+     align-items: center;
+
+}
+
+.button:hover{
+    opacity: 0.8;
+}
+
+.buttonWrapper{
+    margin: 10px;
+}
+.listWrapper{
+    display: flex;
+    flex-direction: row;
+    
+   
+}
+.questionWrapper{
+    margin-bottom: 20px;
+    border-bottom: 1px solid #DBDEF0;
+    padding-bottom: 5px;
+    
+    max-width: 90%;
+    padding-bottom: 10px;
+}
+
+.question{
+    font-size:16px ;
+    font-weight: bold;
+    margin: 10px;
+    display: flex;
+    color: #293264;
+}
+
+/*  CHECK BUTTON STYLES  */
+
+.wrapper{
+    margin: 20px;
+
+}
+.buttonText{
+    background-color: #4D5B9E;
+    display: flex;
+    border-radius: 10px;
+     padding: 5px;
+     width: 120px;
+     height: 33px;
+     align-items: center;
+     color: white;
+     font-weight: bold;
+     font-size: 12px;
+     justify-content: center;
+     border: none;
+
+}
