@@ -69,7 +69,7 @@ main{
   display:flex;
   flex-direction: column;
   padding: 20px;
-  background-color: red;
+
   position: relative;
 }
 .checkBWrapper{
