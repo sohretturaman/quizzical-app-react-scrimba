@@ -8,8 +8,9 @@ import { nanoid } from "nanoid";
 
 const Home = () => {
   const [data, setData] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const getQuestions = useCallback(async () => {
+    setIsLoading(true);
     const result = await fetch(
       "https://opentdb.com/api.php?amount=5&category=20&difficulty=easy&type=multiple"
     ).then((res) => res.json());
@@ -21,11 +22,13 @@ const Home = () => {
         question: item.question,
         answer: item.correct_answer,
         options: shuffleArray(item.incorrect_answers, item.correct_answer),
+        selectedOption: null, // Initially no option is selected
       };
     });
     console.log("new data", newData);
 
     setData(newData);
+    setIsLoading(false);
   }, [setData]);
   useEffect(() => {
     getQuestions();
@@ -42,12 +45,43 @@ const Home = () => {
     return arr;
   };
 
+  const handleSelectedData = useCallback(
+    (questionId, selecteditem) => {
+      console.log("selected item", questionId, selecteditem);
+
+      /*   let item = data.find((item) => item.id === questionId);
+      console.log("item found", item);
+ */
+      setData((prevData) =>
+        prevData.map((question) =>
+          question.id === questionId
+            ? { ...question, selectedOption: selecteditem }
+            : question
+        )
+      );
+      console.log("updated data", data);
+
+      /*  if (item.answer === selecteditem) {
+      console.log("correct");
+    } */
+    },
+    [data]
+  );
+
   return (
     <div className={styles.hContainer}>
       <main>
-        {data?.map((item) => (
-          <Question key={item.id} {...item} />
-        ))}
+        {isLoading ? (
+          <h1>Loading</h1>
+        ) : (
+          data?.map((item) => (
+            <Question
+              key={item.id}
+              {...item}
+              handleSelectedData={handleSelectedData}
+            />
+          ))
+        )}
       </main>
       <div className={styles.checkBWrapper}>
         <CheckButton text="Check Answers" />
