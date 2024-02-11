@@ -1,35 +1,41 @@
 /** @format */
 
+// Home.js
 import React, { useCallback, useEffect, useState } from "react";
 import Question from "../components/Question";
 import styles from "./styles.module.css";
 import CheckButton from "../components/CheckButton";
 import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [clickedCheck, setClickedCheck] = useState(false);
+  const [trueCounts, setTrueCounts] = useState({});
+  const navigate = useNavigate();
+
   const getQuestions = useCallback(async () => {
     setIsLoading(true);
     const result = await fetch(
-      "https://opentdb.com/api.php?amount=5&category=20&difficulty=easy&type=multiple"
+      "https://opentdb.com/api.php?amount=10&category=20&difficulty=easy&type=multiple"
     ).then((res) => res.json());
 
-    const newData = result.results?.map((item) => {
-      return {
-        id: nanoid(),
-        category: item.category,
-        question: item.question,
-        answer: item.correct_answer,
-        options: shuffleArray(item.incorrect_answers, item.correct_answer),
-        selectedOption: null, // Initially no option is selected
-      };
-    });
-    console.log("new data", newData);
+    const newData = result.results?.map((item) => ({
+      id: nanoid(),
+      category: item.category,
+      question: item.question,
+      answer: item.correct_answer,
+      options: shuffleArray(item.incorrect_answers, item.correct_answer),
+      selectedOption: null,
+      isTrue: false,
+      isChecked: false, // Initially, no options are checked
+    }));
 
     setData(newData);
     setIsLoading(false);
   }, [setData]);
+
   useEffect(() => {
     getQuestions();
   }, [getQuestions]);
@@ -46,27 +52,48 @@ const Home = () => {
   };
 
   const handleSelectedData = useCallback(
-    (questionId, selecteditem) => {
-      console.log("selected item", questionId, selecteditem);
-
-      /*   let item = data.find((item) => item.id === questionId);
-      console.log("item found", item);
- */
+    (questionId, selectedOption) => {
       setData((prevData) =>
         prevData.map((question) =>
           question.id === questionId
-            ? { ...question, selectedOption: selecteditem }
+            ? { ...question, selectedOption }
             : question
         )
       );
-      console.log("updated data", data);
-
-      /*  if (item.answer === selecteditem) {
-      console.log("correct");
-    } */
     },
-    [data]
+    [setData]
   );
+
+  useEffect(() => {
+    if (clickedCheck) {
+      countTrues();
+    }
+  }, [clickedCheck]);
+  const countTrues = useCallback(() => {
+    let counts = 0;
+    data?.forEach((item) => {
+      if (item.isTrue) {
+        counts++;
+      }
+    });
+    console.log("const Trues", counts);
+    setTrueCounts(counts);
+  }, [setTrueCounts, data]);
+
+  const handleCheckClick = () => {
+    if (clickedCheck) {
+      navigate("/result", { state: { trueCounts } });
+    } else {
+      setData((prevData) =>
+        prevData.map((item) => ({
+          ...item,
+          isTrue: item.selectedOption === item.answer,
+          isChecked: true,
+        }))
+      );
+      setClickedCheck(true);
+    }
+  };
 
   return (
     <div className={styles.hContainer}>
@@ -84,38 +111,13 @@ const Home = () => {
         )}
       </main>
       <div className={styles.checkBWrapper}>
-        <CheckButton text="Check Answers" />
+        <CheckButton
+          text={clickedCheck ? "See Results" : "Check Answers"}
+          checkClick={handleCheckClick}
+        />
       </div>
     </div>
   );
 };
 
 export default Home;
-
-/*   const questionsLlist = data?.map((item) => {
-    return <Question key={item.id} {...item} />;
-  }); */
-
-/* 
-  const getQuestions = useCallback(async () => {
-    await fetch(
-      "https://opentdb.com/api.php?amount=10&category=20&difficulty=easy&type=multiple"
-    )
-      .then((jsonData) => jsonData.json())
-      .then((result) => {
-        const data = result.results;
-        const newData = [];
-
-        data?.map((item) => {
-          newData.push({
-            id: nanoid(),
-            category: item.category,
-            question: item.question,
-            answer: item.correct_answer,
-            options: shuffleArray(item.incorrect_answers, item.correct_answer),
-          });
-        });
-        console.log("api ", newData);
-        setData(newData);
-      });
-  }, []); */

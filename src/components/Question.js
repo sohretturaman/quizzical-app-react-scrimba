@@ -15,6 +15,9 @@ const Question = memo((props) => {
             checkSelected={props.handleSelectedData}
             id={props.id}
             selectedOption={props.selectedOption}
+            isChecked={props.isChecked}
+            isTrue={props.isTrue}
+            answer={props.answer}
           />
         ))}
       </div>
