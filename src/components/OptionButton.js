@@ -8,6 +8,10 @@ const OptionButton = memo(
   ({ text, checkSelected, id, selectedOption, isChecked, isTrue, answer }) => {
     let isSelected = selectedOption === text;
 
+    // Function to format the option text
+    const formatOptionText = (optionText) => {
+      return { __html: optionText };
+    };
     const handleClick = (item) => {
       checkSelected(id, item);
     };
@@ -40,9 +44,8 @@ const OptionButton = memo(
               color: "black",
             }}
             onClick={() => handleClick(text)}
-          >
-            {text}
-          </button>
+            dangerouslySetInnerHTML={formatOptionText(text)}
+          ></button>
         )}
       </div>
     );

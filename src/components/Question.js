@@ -4,9 +4,16 @@ import React, { memo } from "react";
 import OptionButton from "./OptionButton";
 import styles from "./cStyles.module.css";
 const Question = memo((props) => {
+  const { question } = props;
+  const formatQuestionText = (text) => {
+    return { __html: text };
+  };
   return (
     <div className={styles.questionWrapper}>
-      <p className={styles.question}>{props.question}</p>
+      <p
+        className={styles.question}
+        dangerouslySetInnerHTML={formatQuestionText(question)}
+      ></p>
       <div className={styles.listWrapper}>
         {props.options?.map((option) => (
           <OptionButton
