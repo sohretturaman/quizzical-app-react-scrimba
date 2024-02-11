@@ -18,7 +18,7 @@ const Home = () => {
   const getQuestions = useCallback(async () => {
     setIsLoading(true);
     const result = await fetch(
-      "https://opentdb.com/api.php?amount=10&category=20&difficulty=easy&type=multiple"
+      "https://opentdb.com/api.php?amount=5&category=22&difficulty=easy&type=multiple"
     ).then((res) => res.json());
 
     const newData = result.results?.map((item) => ({

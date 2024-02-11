@@ -76,7 +76,15 @@ main{
 align-self: center;
 display: flex;
 position: absolute;
-bottom: 0px;
+bottom: 10px;
 
 
+}
+
+.resultPage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
 }

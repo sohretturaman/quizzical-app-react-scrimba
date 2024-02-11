@@ -32,7 +32,7 @@ const OptionButton = memo(
               backgroundColor: isSelected
                 ? selectedOption === text && text === answer
                   ? "#94D7A2"
-                  : "#F8BCBC"
+                  : "#D85050"
                 : text === answer
                 ? "#94D7A2"
                 : "white",
