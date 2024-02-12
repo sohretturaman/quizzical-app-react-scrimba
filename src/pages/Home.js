@@ -1,6 +1,5 @@
 /** @format */
 
-// Home.js
 import React, { useCallback, useEffect, useState } from "react";
 import Question from "../components/Question";
 import styles from "./styles.module.css";
@@ -15,30 +14,54 @@ const Home = () => {
   const [trueCounts, setTrueCounts] = useState({});
   const navigate = useNavigate();
 
+  const throttle = (func, limit) => {
+    let inThrottle;
+    return function () {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  };
+
+  const throttledGetQuestions = useCallback(
+    throttle(() => {
+      getQuestions();
+    }, 1000), // Adjust the throttle delay as needed (e.g., 1000ms = 1 second)
+    []
+  );
+
   const getQuestions = useCallback(async () => {
-    setIsLoading(true);
-    const result = await fetch(
-      "https://opentdb.com/api.php?amount=5&category=22&difficulty=easy&type=multiple"
-    ).then((res) => res.json());
+    try {
+      setIsLoading(true);
+      const result = await fetch(
+        "https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple"
+      ).then((res) => res.json());
 
-    const newData = result.results?.map((item) => ({
-      id: nanoid(),
-      category: item.category,
-      question: item.question,
-      answer: item.correct_answer,
-      options: shuffleArray(item.incorrect_answers, item.correct_answer),
-      selectedOption: null,
-      isTrue: false,
-      isChecked: false, // Initially, no options are checked
-    }));
-
-    setData(newData);
-    setIsLoading(false);
-  }, [setData]);
+      const newData = result.results?.map((item) => ({
+        id: nanoid(),
+        category: item.category,
+        question: item.question,
+        answer: item.correct_answer,
+        options: shuffleArray(item.incorrect_answers, item.correct_answer),
+        selectedOption: null,
+        isTrue: false,
+        isChecked: false, // Initially, no options are checked
+      }));
+      setData(newData ? newData : []);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("An error occurred while fetching", error);
+      setIsLoading(false);
+    }
+  }, [setData, setIsLoading]);
 
   useEffect(() => {
-    getQuestions();
-  }, [getQuestions]);
+    throttledGetQuestions();
+  }, [throttledGetQuestions]);
 
   const shuffleArray = (arr, item) => {
     let n = arr.length;
@@ -64,11 +87,6 @@ const Home = () => {
     [setData]
   );
 
-  useEffect(() => {
-    if (clickedCheck) {
-      countTrues();
-    }
-  }, [clickedCheck]);
   const countTrues = useCallback(() => {
     let counts = 0;
     data?.forEach((item) => {
@@ -76,9 +94,16 @@ const Home = () => {
         counts++;
       }
     });
+
     console.log("const Trues", counts);
     setTrueCounts(counts);
   }, [setTrueCounts, data]);
+
+  useEffect(() => {
+    if (clickedCheck) {
+      countTrues();
+    }
+  }, [clickedCheck, countTrues]);
 
   const handleCheckClick = () => {
     if (clickedCheck) {
@@ -104,8 +129,14 @@ const Home = () => {
           data?.map((item) => (
             <Question
               key={item.id}
-              {...item}
+              question={item.question}
+              options={item.options}
               handleSelectedData={handleSelectedData}
+              id={item.id}
+              selectedOption={item.selectedOption}
+              isChecked={item.isChecked}
+              isTrue={item.isTrue}
+              answer={item.answer}
             />
           ))
         )}
