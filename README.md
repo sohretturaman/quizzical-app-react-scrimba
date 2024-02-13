@@ -1,9 +1,7 @@
 # Getting Started with Create React App
 ![quizzical1](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/2bae03cd-71d2-4332-a89d-c4105a2f351f)
-
-![quizzical2](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/21a18f2d-cef6-4b29-b936-18f8943e3ae0)
-
 ![quizzical3](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/41d98152-0b1c-4192-9500-db96e007c19b)
+![quizzical2](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/21a18f2d-cef6-4b29-b936-18f8943e3ae0)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
