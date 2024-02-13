@@ -1,4 +1,5 @@
 # Getting Started with Create React App
+## The quizz app has been created in this repo
 ![quizzical1](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/2bae03cd-71d2-4332-a89d-c4105a2f351f)
 ![quizzical3](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/41d98152-0b1c-4192-9500-db96e007c19b)
 ![quizzical4](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/e283bdac-432e-4b5a-8e81-5a7aec2a294b)
