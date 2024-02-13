@@ -44,6 +44,8 @@ const Home = () => {
         isTrue: false,
         isChecked: false, // Initially, no options are checked
       }));
+      console.log("api is working", newData);
+
       setData(newData || []);
       setIsLoading(false);
     } catch (error) {
