@@ -27,13 +27,6 @@ const Home = () => {
     };
   };
 
-  const throttledGetQuestions = useCallback(
-    throttle(() => {
-      getQuestions();
-    }, 1000), // Adjust the throttle delay as needed (e.g., 1000ms = 1 second)
-    []
-  );
-
   const getQuestions = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -51,13 +44,21 @@ const Home = () => {
         isTrue: false,
         isChecked: false, // Initially, no options are checked
       }));
-      setData(newData ? newData : []);
+      setData(newData || []);
       setIsLoading(false);
     } catch (error) {
       console.log("An error occurred while fetching", error);
       setIsLoading(false);
     }
   }, [setData, setIsLoading]);
+
+  const throttledGetQuestions = useCallback(
+    () =>
+      throttle(() => {
+        getQuestions();
+      }, 1000), // Adjust the throttle delay as needed (e.g., 1000ms = 1 second)
+    [getQuestions] // Include getQuestions in the dependency array
+  );
 
   useEffect(() => {
     throttledGetQuestions();
