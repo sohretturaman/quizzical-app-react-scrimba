@@ -2,7 +2,9 @@
 ![quizzical1](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/2bae03cd-71d2-4332-a89d-c4105a2f351f)
 ![quizzical3](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/41d98152-0b1c-4192-9500-db96e007c19b)
 ![quizzical2](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/21a18f2d-cef6-4b29-b936-18f8943e3ae0)
+![quizzical4](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/e283bdac-432e-4b5a-8e81-5a7aec2a294b)
 
+![quizzical5](https://github.com/sohretturaman/quizzical-app-react-scrimba/assets/81382575/4752ea0e-9fb3-422b-9594-75e3228cf844)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
